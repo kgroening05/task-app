@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { AddListItem } from './components/Overview'; 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+  constructor(){
+    super()
+    this.state = {
+      taskList: ['number one']
+    }
+    this.updateTaskList = this.updateTaskList.bind(this);
+  }
+
+  updateTaskList(){
+    const input = document.querySelector('input')
+    this.setState({
+      taskList: [...this.state.taskList, input.value]
+    })
+    input.value = ''
+  }
+
+  render() {
+    return(
+      <div className="App">
+        <div className='input'>
+          <input></input>
+          <button onClick = {this.updateTaskList}>The Button</button>
+        </div>
+        <div className='tasks'>
+          <ul>
+            {this.state.taskList.map(task => <AddListItem taskContent = {task} />)}
+          </ul>
+        </div>
+      </div>
+    )
+  };
 }
 
 export default App;
